@@ -98,12 +98,27 @@ function renderJobs() {
     
   <div class="card-body  bg-white rounded-lg">
     <div class='flex justify-between'>
-    <div>
-    <h2 class="card-title">${job.companyName}</h2>
-    <p>${job.position}</p>
-    <div class="card-actions">
-      <button class="btn btn-primary">Buy Now</button>
+
+    <div class="">
+    <h2 class="card-title font-bold">${job.companyName}</h2>
+    <p class="text-gray-500">${job.position}</p>
+
+    <div class='flex w-50 py-5'>
+    <p class="text-gray-500">${job.type}</p>
+    <p>.</p>
+    <p class="text-gray-500">${job.salary}</p>
     </div>
+    
+    <span id="not-applied-status" class="bg-[#eef4ff] px-4 py-1">Not Applied</span>
+
+    <p class="text-gray-600 pt-3 pb-5">${job.description}</p>
+    
+   
+    <div class="join gap-4">
+      <input class="join-item btn" type="radio" name="options" aria-label="Interview" />
+      <input class="join-item btn" type="radio" name="options" aria-label="Rejected" />
+   </div>
+   
     </div>
 
     <div id="delete-icon">
