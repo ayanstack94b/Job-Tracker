@@ -29,14 +29,14 @@
         </h1>
 
         <!-- responsive dashboard-->
-        <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 ">
+        <section id="dashboard-section" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 ">
             <!-- card-1 -->
             <div class=" p-5 rounded-lg w-full bg-white border-[#f1f2f4FF] shadow-sm 
             transition-all duration-300 ease-in-out 
             hover:shadow-lg hover:-translate-y-1">
                 <div class="flex flex-col space-y-2">
                     <p class="">Total</p>
-                    <p class="font-bold text-blue-950">8</p>
+                    <p id="total-count" class="font-bold text-blue-800">0</p>
                 </div>
             </div>
             <!-- card-2 -->
@@ -44,7 +44,7 @@
               transition-all duration-300 ease-in-out hover:shadow-lg hover:-translate-y-1">
                 <div class="flex flex-col space-y-2">
                     <p class="">Interview</p>
-                    <p class="font-bold text-green-600">0</p>
+                    <p id="interview-count" class="font-bold text-green-600">0</p>
                 </div>
             </div>
             <!-- card-3 -->
@@ -52,16 +52,51 @@
                         hover:shadow-lg hover:-translate-y-1">
                 <div class="flex flex-col space-y-2">
                     <p class="">Rejected</p>
-                    <p class="font-bold text-red-600">0</p>
+                    <p id="rejected-count" class="font-bold text-red-600">0</p>
                 </div>
             </div>
 
         </section>
 
     </header>
+
+    <!-- main section starts here -->
+
     <main class="w-11/12 mx-auto">
 
+        <section id="jobs-section" class="max-w-[1110px] pt-8 mx-auto space-y-3">
+
+            <!-- Jobs Section Header -->
+
+            <div class="flex justify-between items-center">
+                <h1 class="text-2xl font-semibold">Available Jobs</h1>
+                <p id="tab-count" class="font-medium text-gray-600">0</p>
+            </div>
+
+            <!-- Filter Button Group -->
+
+            <div class="join gap-3">
+                <input class="join-item btn rounded-2xl" type="radio" name="job-filter" value="all" aria-label="All"
+                    checked />
+
+                <input class="join-item btn rounded-2xl" type="radio" name="job-filter" value="interview"
+                    aria-label="Interview" />
+
+                <input class="join-item btn rounded-2xl" type="radio" name="job-filter" value="rejected"
+                    aria-label="Rejected" />
+            </div>
+
+            <!-- Jobs Container -->
+            <div id="jobs-container" class="grid grid-cols-1 md:grid-cols-1 gap-6">
+
+            </div>
+
+        </section>
     </main>
+
+
+    <!-- js linked here -->
+    <script src="./Script/index.js"></script>
 </body>
 
 </html>
