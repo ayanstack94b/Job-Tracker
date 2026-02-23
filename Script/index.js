@@ -90,10 +90,22 @@ const allJobs = [
 ];
 
 function renderJobs() {
+  const jobsContainer = document.getElementById("jobs-container");
+  jobsContainer.innerHTML = "";
   for (const job of allJobs) {
     console.log(job);
-    const jobsContainer = document.getElementById("jobs-container");
     const newCard = document.createElement("div");
+
+    let statusText;
+
+    if (job.status === "all") {
+      statusText = "Not Applied";
+    } else if (job.status === "interview") {
+      statusText = "Interview";
+    } else if (job.status === "rejected") {
+      statusText = "Rejected";
+    }
+
     newCard.innerHTML = `
     
   <div class="card-body  bg-white rounded-lg">
@@ -109,23 +121,35 @@ function renderJobs() {
     <p class="text-gray-500">${job.salary}</p>
     </div>
     
-    <span id="not-applied-status" class="bg-[#eef4ff] px-4 py-1">Not Applied</span>
+      <span class="status-label bg-[#eef4ff] px-4 py-1">
+          ${statusText}
+      </span>
 
     <p class="text-gray-600 pt-3 pb-5">${job.description}</p>
     
    
     <div class="join gap-4">
-      <input class="join-item btn" type="radio" name="options" aria-label="Interview" />
-      <input class="join-item btn" type="radio" name="options" aria-label="Rejected" />
-   </div>
+        <button 
+                class="interview-btn join-item btn"
+                data-id="${job.id}">
+                Interview
+              </button>
+
+              <button 
+                class="rejected-btn join-item btn"
+                data-id="${job.id}">
+                Rejected
+              </button>
+        </div>
+        </div>
    
+          <div>
+              <i class="fa-regular fa-trash-can text-gray-400 delete-btn"
+              data-id="${job.id}">
+              </i>
+          </div>
     </div>
 
-    <div id="delete-icon">
-    <i class="fa-regular fa-trash-can text-gray-400"></i>
-    </div>
-    </div>
-  </div>
 
 `;
     jobsContainer.appendChild(newCard);
