@@ -106,21 +106,29 @@ function renderJobs() {
   }
 
   if (filteredJobs.length === 0) {
+    let emptyTitle = "No jobs available";
+
+    if (currentTab === "interview") {
+      emptyTitle = "No interview jobs available";
+    } else if (currentTab === "rejected") {
+      emptyTitle = "No rejected jobs available";
+    }
+
     const emptyDiv = document.createElement("div");
     emptyDiv.innerHTML = `
-      <div class="text-center py-16">
-        <i class="fa-regular fa-folder-open text-4xl mb-4 text-gray-400"></i>
-        <h2 class="text-xl font-semibold">
-          No ${currentTab === "all" ? "" : currentTab} jobs available
-        </h2>
-        <p class="text-gray-500 mt-2">
-          Nothing to show in this section.
-        </p>
-      </div>
-    `;
+    <div class="text-center py-16">
+      <img class="ml-[500px] mb-4" src="/jobs.png"></img>
+      <h2 class="text-xl font-semibold">
+        ${emptyTitle}
+      </h2>
+      <p class="text-gray-500 mt-2">
+        Check back soon for new job opportunities
+      </p>
+    </div>
+  `;
+
     jobsContainer.appendChild(emptyDiv);
 
-    // Update tab count for empty state
     document.getElementById("tab-count").innerText = 0;
 
     return;
