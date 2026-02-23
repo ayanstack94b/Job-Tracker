@@ -89,17 +89,46 @@ const allJobs = [
   },
 ];
 
+let currentTab = "all";
+
 function renderJobs() {
   const jobsContainer = document.getElementById("jobs-container");
-
-  // Clear old cards
   jobsContainer.innerHTML = "";
 
-  // Loop through each job object in the array
-  for (const job of allJobs) {
+  let filteredJobs;
+
+  if (currentTab === "all") {
+    filteredJobs = allJobs;
+  } else {
+    filteredJobs = allJobs.filter(function (job) {
+      return job.status === currentTab;
+    });
+  }
+
+  if (filteredJobs.length === 0) {
+    const emptyDiv = document.createElement("div");
+    emptyDiv.innerHTML = `
+      <div class="text-center py-16">
+        <i class="fa-regular fa-folder-open text-4xl mb-4 text-gray-400"></i>
+        <h2 class="text-xl font-semibold">
+          No ${currentTab === "all" ? "" : currentTab} jobs available
+        </h2>
+        <p class="text-gray-500 mt-2">
+          Nothing to show in this section.
+        </p>
+      </div>
+    `;
+    jobsContainer.appendChild(emptyDiv);
+
+    // Update tab count for empty state
+    document.getElementById("tab-count").innerText = 0;
+
+    return;
+  }
+
+  for (const job of filteredJobs) {
     const newCard = document.createElement("div");
 
-    // controling the status text and color
     let statusText;
     let statusClass;
 
@@ -114,7 +143,6 @@ function renderJobs() {
       statusClass = "bg-red-100 text-red-600";
     }
 
-    // Button styles
     let interviewClass = "btn";
     let rejectedClass = "btn";
 
@@ -126,7 +154,6 @@ function renderJobs() {
       rejectedClass = "btn bg-red-500 text-white";
     }
 
-    // dynamic HTML using template string
     newCard.innerHTML = `
       <div class="card-body bg-white rounded-lg">
         <div class="flex justify-between">
@@ -141,14 +168,12 @@ function renderJobs() {
               <p class="text-gray-500">${job.salary}</p>
             </div>
 
-            <!-- Dynamic status -->
             <span class="status-label px-4 py-1 rounded ${statusClass}">
               ${statusText}
             </span>
 
             <p class="text-gray-600 pt-3 pb-5">${job.description}</p>
 
-            <!-- Action buttons -->
             <div class="join gap-4">
               <button 
                 class="interview-btn join-item ${interviewClass}"
@@ -164,7 +189,6 @@ function renderJobs() {
             </div>
           </div>
 
-          <!-- Delete icon -->
           <div>
             <i 
               class="fa-regular fa-trash-can text-gray-400 delete-btn"
@@ -176,20 +200,35 @@ function renderJobs() {
       </div>
     `;
 
-    // Added card to container
     jobsContainer.appendChild(newCard);
   }
 
-  // Update dashboard counts
-  const totalTabCount = document.getElementById("tab-count");
-  totalTabCount.innerText = allJobs.length;
+  const interviewCount = allJobs.filter(function (job) {
+    return job.status === "interview";
+  }).length;
 
-  const totalCount = document.getElementById("total-count");
-  totalCount.innerText = allJobs.length;
+  const rejectedCount = allJobs.filter(function (job) {
+    return job.status === "rejected";
+  }).length;
+
+  document.getElementById("total-count").innerText = allJobs.length;
+  document.getElementById("interview-count").innerText = interviewCount;
+  document.getElementById("rejected-count").innerText = rejectedCount;
+  document.getElementById("tab-count").innerText = filteredJobs.length;
 }
 
-// Initial render when page loads
 renderJobs();
+
+const tabRadios = document.querySelectorAll('input[name="job-filter"]');
+
+for (const radio of tabRadios) {
+  radio.addEventListener("change", function (event) {
+    currentTab = event.target.value;
+    // console.log(currentTab);
+    renderJobs();
+  });
+}
+
 
 // ---------------- EVENT LISTENER SECTION ----------------
 
