@@ -218,7 +218,6 @@ function renderJobs() {
 }
 
 renderJobs();
-
 const tabRadios = document.querySelectorAll('input[name="job-filter"]');
 
 for (const radio of tabRadios) {
@@ -228,7 +227,6 @@ for (const radio of tabRadios) {
     renderJobs();
   });
 }
-
 
 // ---------------- EVENT LISTENER SECTION ----------------
 
