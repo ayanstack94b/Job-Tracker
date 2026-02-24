@@ -117,7 +117,7 @@ function renderJobs() {
     const emptyDiv = document.createElement("div");
     emptyDiv.innerHTML = `
     <div class="text-center py-16">
-      <img class="ml-[500px] mb-4" src="/jobs.png"></img>
+      <img class="mx-auto mb-4" src="jobs.png" alt="No jobs"></img>
       <h2 class="text-xl font-semibold">
         ${emptyTitle}
       </h2>
